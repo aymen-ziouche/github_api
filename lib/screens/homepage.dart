@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:github_api/screens/repospage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xff0D1117),
         appBar: AppBar(
           foregroundColor: Colors.white,
@@ -54,6 +58,17 @@ class _HomePageState extends State<HomePage> {
                   autofocus: false,
                   style: const TextStyle(color: Colors.white),
                   controller: myController,
+                  onSubmitted: (value) async {
+                    final storage = GetStorage();
+                    await Future.wait([
+                      storage.write("username", myController.text),
+                    ]);
+                    Navigator.pushNamed(
+                      context,
+                      ReposPage.id,
+                    );
+                    myController.clear();
+                  },
                   decoration: InputDecoration(
                     labelText: "Username",
                     labelStyle: const TextStyle(color: Colors.white),
@@ -83,52 +98,42 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 30,
               ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(const Color(0xff2EA043)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(
-                        color: Color(0xff2EA043),
-                        width: 2.0,
+              Neumorphic(
+                  style: NeumorphicStyle(
+                      shape: NeumorphicShape.concave,
+                      boxShape: NeumorphicBoxShape.roundRect(
+                          BorderRadius.circular(20)),
+                      depth: 8,
+                      lightSource: LightSource.topLeft,
+                      shadowLightColor: Colors.green,
+                      color: Colors.green),
+                  child: TextButton(
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 15,
+                      ),
+                      child: Text(
+                        'Fetch data',
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                  ),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 20,
-                  ),
-                  child: Text('Fetch data'),
-                ),
-                onPressed: () {
-                  getData(myController.text);
-                },
-              ),
+                    onPressed: () async {
+                      final storage = GetStorage();
+                      await Future.wait([
+                        storage.write("username", myController.text),
+                      ]);
+                      Navigator.pushNamed(
+                        context,
+                        ReposPage.id,
+                      );
+                      myController.clear();
+                    },
+                  )),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-Future<void> getData(username) async {
-  try {
-    final dio = Dio();
-    var response =
-        await dio.get("https://api.github.com/users/" + username + "/repos");
-    print(response);
-  } catch (e) {
-    // setState(() {
-    //   error = true;
-    // });
-  } finally {
-    // setState(() {
-    //   loading = false;
-    // });
   }
 }

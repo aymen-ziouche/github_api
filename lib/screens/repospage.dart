@@ -55,11 +55,11 @@ class _ReposPageState extends State<ReposPage> {
                           isFirst: index == 0 ? true : false,
                           isLast: index == repo.length - 1 ? true : false,
                           indicatorStyle:
-                              IndicatorStyle(color: Colors.greenAccent),
-                          afterLineStyle: LineStyle(
+                              const IndicatorStyle(color: Colors.greenAccent),
+                          afterLineStyle: const LineStyle(
                             color: Color.fromARGB(255, 56, 158, 109),
                           ),
-                          beforeLineStyle: LineStyle(
+                          beforeLineStyle: const LineStyle(
                             color: Color.fromARGB(255, 56, 158, 109),
                           ),
                           endChild: Stack(
@@ -192,107 +192,3 @@ class _ReposPageState extends State<ReposPage> {
 
 
 
-
-
-// ListView.builder(
-//                         itemCount: repo.length,
-//                         scrollDirection: Axis.vertical,
-//                         shrinkWrap: true,
-//                         itemBuilder: (context, index) {
-//                           return repo[index].svnUrl != ""
-//                               ? Stack(
-//                                   children: [
-//                                     Column(
-//                                       children: [
-//                                         SizedBox(
-//                                           width: double.infinity,
-//                                           child: Card(
-//                                             elevation: 8,
-//                                             shape: RoundedRectangleBorder(
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(32)),
-//                                             child: Padding(
-//                                               padding:
-//                                                   const EdgeInsets.all(20.0),
-//                                               child: Column(
-//                                                 crossAxisAlignment:
-//                                                     CrossAxisAlignment.center,
-//                                                 children: [
-//                                                   const SizedBox(
-//                                                     height: 10,
-//                                                   ),
-//                                                   Text(
-//                                                     repo[index].name,
-//                                                     maxLines: 1,
-//                                                     softWrap: false,
-//                                                     style: const TextStyle(
-//                                                       fontSize: 20,
-//                                                       color: Color(0xFF414C6B),
-//                                                       fontWeight:
-//                                                           FontWeight.w600,
-//                                                     ),
-//                                                     textAlign: TextAlign.left,
-//                                                   ),
-//                                                   const SizedBox(
-//                                                     height: 20,
-//                                                   ),
-//                                                   Text(
-//                                                     "repo ID ${repo[index].id}",
-//                                                     style: const TextStyle(
-//                                                       fontSize: 12,
-//                                                       color: Color(0xFF414C6B),
-//                                                       fontWeight:
-//                                                           FontWeight.w500,
-//                                                     ),
-//                                                     textAlign: TextAlign.left,
-//                                                   ),
-//                                                   const SizedBox(
-//                                                     height: 20,
-//                                                   ),
-//                                                   Text(
-//                                                     repo[index].description,
-//                                                     maxLines: 1,
-//                                                     overflow:
-//                                                         TextOverflow.ellipsis,
-//                                                     style: const TextStyle(
-//                                                       fontSize: 15,
-//                                                       color: Color(0xFFE4979E),
-//                                                       fontWeight:
-//                                                           FontWeight.w500,
-//                                                     ),
-//                                                     textAlign: TextAlign.center,
-//                                                   ),
-//                                                   const SizedBox(
-//                                                     height: 20,
-//                                                   ),
-//                                                   InkWell(
-//                                                     onTap: () => _launchURL(
-//                                                         repo[index].svnUrl),
-//                                                     child: Text(
-//                                                       repo[index].svnUrl,
-//                                                       style: const TextStyle(
-//                                                         fontSize: 15,
-//                                                         color:
-//                                                             Color(0xFFE4979E),
-//                                                         fontWeight:
-//                                                             FontWeight.w500,
-//                                                       ),
-//                                                       textAlign:
-//                                                           TextAlign.center,
-//                                                     ),
-//                                                   ),
-//                                                 ],
-//                                               ),
-//                                             ),
-//                                           ),
-//                                         ),
-//                                         const SizedBox(
-//                                           height: 20,
-//                                         ),
-//                                       ],
-//                                     ),
-//                                   ],
-//                                 )
-//                               : const SizedBox.shrink();
-//                         },
-//                       ),
